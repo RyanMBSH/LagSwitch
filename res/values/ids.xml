@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="vpn_switch" />
+    <item type="id" name="radio_boost" />
+    <item type="id" name="lag_seekbar" />
+    <item type="id" name="lag_value" />
+    <item type="id" name="game_list" />
+    <item type="id" name="btn_show_floating" />
+</resources>
