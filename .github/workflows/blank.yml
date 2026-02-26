@@ -21,10 +21,10 @@ jobs:
           sudo apt-get install -y google-android-build-tools-34.0.0-installer || sudo apt-get install -y aapt
           wget https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar -O apktool.jar
 
-      - name: Compilar APK (Pasta GB)
-        # Forçamos o uso do aapt interno do apktool para evitar erros de caminho
-        run: java -jar apktool.jar b GB -o gamebooster_mod.apk
-
+      - name: Compilar APK
+        # Mudamos de "GB" para "." (que significa: compile tudo o que está aqui)
+        run: java -jar apktool.jar b . -o gamebooster_mod.apk
+        
       - name: Disponibilizar para Download
         uses: actions/upload-artifact@v4
         with:
