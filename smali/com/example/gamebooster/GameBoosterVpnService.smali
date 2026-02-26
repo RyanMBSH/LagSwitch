@@ -2048,13 +2048,13 @@
 
     move/from16 v0, v16
 
-    nop
+    goto :cond_0
 
     move-object v15, v13
 
     iget-object v15, v15, Lcom/example/gamebooster/GameBoosterVpnService$Packet;->data:[B
 
-    nop
+    goto :cond_0
 
     .line 171
     move-object v15, v1
