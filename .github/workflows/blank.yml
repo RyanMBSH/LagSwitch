@@ -1,0 +1,35 @@
+name: Build APK Mod
+on: [push] # Ele rodará toda vez que você der 'git push'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout do Código
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Instalar Ferramentas de Build
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y aapt aapt2
+          wget https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar -O apktool.jar
+
+      - name: Compilar APK (Pasta GB)
+        # O comando abaixo usa o aapt2 do Ubuntu, resolvendo o erro de 'unknown option'
+        run: java -jar apktool.jar b --use-aapt2 GB -o gamebooster_mod.apk
+
+      - name: Assinar APK (Opcional - Debug)
+        # Por enquanto, vamos apenas gerar. Se quiser assinar aqui, precisaremos da sua keystore
+        run: echo "APK Gerado com sucesso"
+
+      - name: Disponibilizar para Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: LagSwitch-Mod-APK
+          path: gamebooster_mod.apk
