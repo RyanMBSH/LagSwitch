@@ -1,5 +1,5 @@
 name: Build APK Mod
-on: [push] # Ele rodará toda vez que você der 'git push'
+on: [push]
 
 jobs:
   build:
@@ -17,16 +17,13 @@ jobs:
       - name: Instalar Ferramentas de Build
         run: |
           sudo apt-get update
-          sudo apt-get install -y aapt aapt2
+          # Mudamos aqui: instalando as build-tools que já trazem o aapt2
+          sudo apt-get install -y google-android-build-tools-34.0.0-installer || sudo apt-get install -y aapt
           wget https://github.com/iBotPeaches/Apktool/releases/download/v2.10.0/apktool_2.10.0.jar -O apktool.jar
 
       - name: Compilar APK (Pasta GB)
-        # O comando abaixo usa o aapt2 do Ubuntu, resolvendo o erro de 'unknown option'
-        run: java -jar apktool.jar b --use-aapt2 GB -o gamebooster_mod.apk
-
-      - name: Assinar APK (Opcional - Debug)
-        # Por enquanto, vamos apenas gerar. Se quiser assinar aqui, precisaremos da sua keystore
-        run: echo "APK Gerado com sucesso"
+        # Forçamos o uso do aapt interno do apktool para evitar erros de caminho
+        run: java -jar apktool.jar b GB -o gamebooster_mod.apk
 
       - name: Disponibilizar para Download
         uses: actions/upload-artifact@v4
